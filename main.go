@@ -117,12 +117,10 @@ func HandleWS(w http.ResponseWriter, r *http.Request) {
 
 				game.DropDisc(col)
 
-				// Bot win check (FIXED)
+				// Bot win check
 				botSymbol := 2 // BOT is always player 2
 
 				if game.CheckWin(botSymbol) {
-
-					// ✅ SEND FINAL BOARD FIRST
 
 					RecordWin("BOT")
 					for _, p := range game.Players {
@@ -135,7 +133,6 @@ func HandleWS(w http.ResponseWriter, r *http.Request) {
 						}
 					}
 
-					// ✅ THEN SEND WIN EVENT
 					for _, p := range game.Players {
 						if p.Conn != nil {
 							p.Conn.WriteJSON(map[string]interface{}{
@@ -148,10 +145,8 @@ func HandleWS(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 
-				// Switch back to human
 				game.SwitchTurn()
 
-				// Broadcast state after bot move
 				for _, p := range game.Players {
 					if p.Conn != nil {
 						p.Conn.WriteJSON(map[string]interface{}{

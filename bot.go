@@ -20,23 +20,19 @@ func BotMove(g *Game, botSymbol int) int {
 		opp = 2
 	}
 
-	// 1️⃣ Bot tries to WIN
 	if c := findWinningMove(g, botSymbol); c != -1 {
 		return c
 	}
 
-	// 2️⃣ Bot blocks opponent
 	if c := findWinningMove(g, opp); c != -1 {
 		return c
 	}
 
-	// 3️⃣ Center preference
 	center := COLS / 2
 	if g.Board[0][center] == 0 {
 		return center
 	}
 
-	// 4️⃣ First valid
 	for c := 0; c < COLS; c++ {
 		if g.Board[0][c] == 0 {
 			return c

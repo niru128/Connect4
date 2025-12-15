@@ -92,10 +92,8 @@ func StartBotAfterTimeOut(p *Player) {
 	p.Symbol = 1
 	waitingPlayer = nil
 
-	// 🔗 Attach game to player
 	playerGames[p.Username] = game
 
-	// 🔔 Notify client
 	p.Conn.WriteJSON(map[string]interface{}{
 		"type":   "start",
 		"symbol": 1,
